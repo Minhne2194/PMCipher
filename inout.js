@@ -20,3 +20,15 @@ function caesarCipher(str, shift) {
         return String.fromCharCode(shiftedCode);
     }).join('');
 }
+document.getElementById('fileInput').addEventListener('change', handleFileSelect);
+
+function handleFileSelect(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        document.getElementById('inputText').value = e.target.result;
+    };
+    reader.readAsText(file);
+}
