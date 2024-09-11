@@ -1,3 +1,5 @@
+document.getElementById('fileInput').addEventListener('change', handleFileSelect);
+
 function performOperation() {
     const inputText = document.getElementById('inputText').value;
     const key = parseInt(document.getElementById('key').value);
@@ -20,7 +22,7 @@ function caesarCipher(str, shift) {
         return String.fromCharCode(shiftedCode);
     }).join('');
 }
-document.getElementById('fileInput').addEventListener('change', handleFileSelect);
+
 
 function handleFileSelect(event) {
     const file = event.target.files[0];
