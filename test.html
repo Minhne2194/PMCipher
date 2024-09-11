@@ -123,6 +123,18 @@
 
         return result;
     }
+        // **Đọc tệp với mã hóa UTF-8 để đảm bảo chuyển thành văn bản Latin**
+        reader.readAsText(file, 'UTF-8');
+
+        reader.onload = function(e) {
+            input.value = e.target.result;
+        };
+
+        // **Xử lý lỗi nếu không đọc được tệp**
+        reader.onerror = function() {
+            alert('Không thể đọc tệp. Vui lòng thử lại hoặc đảm bảo tệp ở định dạng văn bản thông thường.');
+        };
+    }
 </script>
 
 </body>
