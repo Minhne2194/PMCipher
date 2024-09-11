@@ -1,4 +1,16 @@
+// Xử lý sự kiện khi người dùng chọn tệp
 document.getElementById('fileInput').addEventListener('change', handleFileSelect);
+
+function handleFileSelect(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        document.getElementById('inputText').value = e.target.result;
+    };
+    reader.readAsText(file);
+}
 
 function performOperation() {
     const inputText = document.getElementById('inputText').value;
@@ -10,8 +22,12 @@ function performOperation() {
         return;
     }
 
-    const resultText = (operation === 'encode') ? caesarCipher(inputText, key) : caesarCipher(inputText, -key);
-    document.getElementById('resultText').value = resultText;
+    try {
+        const resultText = (operation === 'encode') ? caesarCipher(inputText, key) : caesarCipher(inputText, -key);
+        document.getElementById('resultText').value = resultText;
+    } catch (error) {
+        alert('Đã xảy ra lỗi trong quá trình mã hóa/giải mã: ' + error.message);
+    }
 }
 
 function caesarCipher(str, shift) {
@@ -21,37 +37,5 @@ function caesarCipher(str, shift) {
         let shiftedCode = ((code + shift) % 256 + 256) % 256;
         return String.fromCharCode(shiftedCode);
     }).join('');
-}
-
-
-function handleFileSelect(event) {
-    const file = event.target.files[0];
-    if (!file) return;
-
-    const reader = new FileReader();
-    reader.onload = function(e) {
-        document.getElementById('inputText').value = e.target.result;
-    };
-    reader.readAsText(file);
-}
-
-document.getElementById('fileInput').addEventListener('change', handleFileSelect);
-
-function handleFileSelect(event) {
-    const file = event.target.files[0];
-    if (!file) return;
-
-    const reader = new FileReader();
-    reader.onload = function(e) {
-        document.getElementById('inputText').value = e.target.result;
-    };
-    reader.readAsText(file);
-}
-
-try {
-    const resultText = (operation === 'encode') ? caesarCipher(inputText, key) : caesarCipher(inputText, -key);
-    document.getElementById('resultText').value = resultText;
-} catch (error) {
-    alert('Đã xảy ra lỗi trong quá trình mã hóa/giải mã: ' + error.message);
 }
 
