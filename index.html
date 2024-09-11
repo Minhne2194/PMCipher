@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caesar Cipher Encoder/Decoder</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Caesar Cipher Encoder/Decoder</h1>
+        
+        <label for="inputText">Nhập văn bản:</label>
+        <textarea id="inputText" placeholder="Nhập văn bản tại đây..." rows="5"></textarea>
+        <br>
+        <label for="key">Nhập khóa dịch:</label>
+        <input type="number" id="key" placeholder="Nhập khóa (0-255)" min="0" max="255">
+        <br>
+        <label for="operation">Chọn chức năng:</label>
+        <select id="operation">
+            <option value="encode">Mã hóa</option>
+            <option value="decode">Giải mã</option>
+        </select>
+        <br>
+        <button onclick="performOperation()">Thực hiện</button>
+        
+        <h2>Kết quả:</h2>
+        <textarea id="resultText" readonly rows="5"></textarea>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
