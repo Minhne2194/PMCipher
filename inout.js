@@ -34,3 +34,24 @@ function handleFileSelect(event) {
     };
     reader.readAsText(file);
 }
+
+document.getElementById('fileInput').addEventListener('change', handleFileSelect);
+
+function handleFileSelect(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        document.getElementById('inputText').value = e.target.result;
+    };
+    reader.readAsText(file);
+}
+
+try {
+    const resultText = (operation === 'encode') ? caesarCipher(inputText, key) : caesarCipher(inputText, -key);
+    document.getElementById('resultText').value = resultText;
+} catch (error) {
+    alert('Đã xảy ra lỗi trong quá trình mã hóa/giải mã: ' + error.message);
+}
+
