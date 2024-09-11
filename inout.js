@@ -1,16 +1,19 @@
+
     function loadFile(inputId) {
         const input = document.getElementById(inputId);
         const fileInput = document.getElementById(inputId + 'File');
         const file = fileInput.files[0];
         const reader = new FileReader();
 
+        reader.readAsText(file, 'UTF-8');
+
         reader.onload = function(e) {
             input.value = e.target.result;
         };
 
-        if (file) {
-            reader.readAsText(file);
-        }
+        reader.onerror = function() {
+            alert('Không thể đọc tệp. Vui lòng thử lại.');
+        };
     }
 
     function processText() {
@@ -46,4 +49,3 @@
 
         return result;
     }
-
