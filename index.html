@@ -11,30 +11,42 @@
 </head>
 <body>
 
-<div class="container">
+<div class="container">    
     <h2>Mã hóa Dịch vòng với ASCII</h2>
 
-    <label for="plaintext">Nhập bản rõ hoặc tải tệp:</label>
-    <textarea id="plaintext" placeholder="Nhập bản rõ tại đây..."></textarea>
-    <input type="file" id="plaintextFile" accept=".txt" onchange="loadFile('plaintext')">
+    <div class="section">
+        <label for="plaintext">Nhập bản rõ hoặc tải tệp:</label>
+        <textarea id="plaintext" placeholder="Nhập bản rõ tại đây..."></textarea>
+        <input type="file" id="plaintextFile" accept=".txt" onchange="loadFile('plaintext')">
+    </div>
 
-    <label for="ciphertext">Nhập bản mã hoặc tải tệp:</label>
-    <textarea id="ciphertext" placeholder="Nhập bản mã tại đây..."></textarea>
-    <input type="file" id="ciphertextFile" accept=".txt" onchange="loadFile('ciphertext')">
+    <div class="section">
+        <label for="ciphertext">Nhập bản mã hoặc tải tệp:</label>
+        <textarea id="ciphertext" placeholder="Nhập bản mã tại đây..."></textarea>
+        <input type="file" id="ciphertextFile" accept=".txt" onchange="loadFile('ciphertext')">
+    </div>
 
-    <label for="action">Chọn hành động:</label>
-    <select id="action">
-        <option value="encode">Mã hóa</option>
-        <option value="decode">Giải mã</option>
-    </select>
+    <div class="section">
+        <label for="action">Chọn hành động:</label>
+        <select id="action">
+            <option value="encode">Mã hóa</option>
+            <option value="decode">Giải mã</option>
+        </select>
+    </div>
 
-    <label for="shift">Nhập số bước dịch (0-255):</label>
-    <input type="number" id="shift" value="0" min="0" max="255">
+    <div class="section">
+        <label for="shift">Nhập số bước dịch (0-255):</label>
+        <input type="number" id="shift" value="0" min="0" max="255">
+    </div>
 
-    <button onclick="processText()">Thực hiện</button>
+    <div class="section">
+        <button onclick="processText()">Thực hiện</button>
+    </div>
 
-    <h3>Kết quả:</h3>
-    <textarea id="result" readonly></textarea>
+    <div class="section">
+        <h3>Kết quả:</h3>
+        <textarea id="result" readonly></textarea>
+    </div>
 </div>
     <script src="inout.js"></script>
 </body>
