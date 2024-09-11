@@ -1,4 +1,3 @@
-
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
@@ -12,29 +11,26 @@
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-        textarea {
+        textarea, input[type="file"], select, input[type="number"], button {
             width: 100%;
-            height: 150px;
-            padding: 10px;
             margin-bottom: 20px;
-            border: 1px solid #ccc;
+            padding: 10px;
             border-radius: 5px;
+            border: 1px solid #ccc;
             font-size: 14px;
         }
         button {
-            padding: 10px 20px;
-            font-size: 16px;
-            border: none;
-            border-radius: 5px;
             background-color: #28a745;
             color: white;
             cursor: pointer;
+            border: none;
         }
         button:disabled {
             background-color: #ccc;
         }
-        select {
-            padding: 10px;
+        .section {
             margin-bottom: 20px;
-            width: 100%;
+        }
+        h3 {
+            margin-top: 0;
         }
