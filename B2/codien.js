@@ -1,3 +1,7 @@
+function goBack() {
+    window.location.href = 'index.html';
+}
+
 function loadFile(inputId) {
     const input = document.getElementById(inputId);
     const fileInput = document.getElementById(inputId + 'File');
