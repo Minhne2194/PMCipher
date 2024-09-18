@@ -9,7 +9,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>Công cụ mã hóa và giải mã</h1>
+        <h1>Công cụ mã hóa và giải mã cổ điển</h1>
 
         <div class="section">
 
@@ -54,10 +54,29 @@
         <input type="text" id="vigenereKey" placeholder="Nhập khóa...">
     </div>
 
+    <div class="section" id="hillInputs">
+    <label>Nhập ma trận khóa (Hill Cipher):</label>
+    <div class="matrix">
+        <label for="matrix00">Phần tử [0,0]:</label>
+        <input type="number" id="matrix00" value="1" min="0" max="255">
+
+        <label for="matrix01">Phần tử [0,1]:</label>
+        <input type="number" id="matrix01" value="0" min="0" max="255">
+
+        <label for="matrix10">Phần tử [1,0]:</label>
+        <input type="number" id="matrix10" value="0" min="0" max="255">
+
+        <label for="matrix11">Phần tử [1,1]:</label>
+        <input type="number" id="matrix11" value="1" min="0" max="255">
+    </div>
+</div>
+
+
     <div class="section">
         <button onclick="processText1()">Thực hiện mã hóa/giải mã Ceasar</button>
         <button onclick="processText2()">Thực hiện mã hóa/giải mã Affine</button>
         <button onclick="processText3()">Thực hiện mã hóa/giải mã Vigenere</button>
+        <button onclick="processText3()">Thực hiện mã hóa/giải mã Hill</button>
     </div>
 
     <div class="section">
