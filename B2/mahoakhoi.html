@@ -1,1 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Công cụ mã hóa và giải mã</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="mahoakhoi.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Công cụ mã hóa và giải mã khối</h1>
 
+        <div class="section">
+
+        <div class="section">
+            <label for="plaintext">Nhập bản rõ hoặc tải tệp:</label>
+            <textarea id="plaintext" placeholder="Nhập bản rõ tại đây..."></textarea>
+            <input type="file" id="plaintextFile" accept=".txt" onchange="loadFile('plaintext')">
+        </div>
+
+        <div class="section">
+            <label for="ciphertext">Nhập bản mã hoặc tải tệp:</label>
+            <textarea id="ciphertext" placeholder="Nhập bản mã tại đây..."></textarea>
+            <input type="file" id="ciphertextFile" accept=".txt" onchange="loadFile('ciphertext')">
+        </div>
+
+        <div class="section">
+            <label for="action">Chọn hành động:</label>
+            <select id="action">
+                <option value="encode">Mã hóa</option>
+                <option value="decode">Giải mã</option>
+            </select>
+        </div>
+            <!-- DES -->
+            <div class="section" id="desInput">
+                <label for="desKey">Nhập khóa (DES):</label>
+                <input type="text" id="desKey" placeholder="Nhập khóa...">
+            </div>
+
+            <!-- AES -->
+            <div class="section" id="aesInput">
+                <label for="aesKey">Nhập khóa (AES):</label>
+                <input type="text" id="aesKey" placeholder="Nhập khóa...">
+            </div>
+    
+            <div class="section">
+                <button onclick="processText5()">Thực hiện mã hóa/giải mã DES</button>
+                <button onclick="processText6()">Thực hiện mã hóa/giải mã AES</button>
+            </div>
+            <div class="section">
+                <h3>Kết quả:</h3>
+                <textarea id="result" readonly></textarea>
+            </div>
+          </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <script src="mahoakhoi.js"></script>
+</body>
+</html>
