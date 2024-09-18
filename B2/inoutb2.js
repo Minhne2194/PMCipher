@@ -136,3 +136,71 @@ function vigenereCipher(text, keyword, encode = true) {
     return result;
 }
 
+function processText4() {
+    const action = document.getElementById('action').value;
+    const matrix = [
+        [parseInt(document.getElementById('matrix00').value), parseInt(document.getElementById('matrix01').value)],
+        [parseInt(document.getElementById('matrix10').value), parseInt(document.getElementById('matrix11').value)]
+    ];
+    let inputText = '';
+
+    if (action === 'encode') {
+        inputText = document.getElementById('plaintext').value;
+    } else {
+        inputText = document.getElementById('ciphertext').value;
+    }
+
+    const result = hillCipher(inputText, matrix, action === 'encode');
+    document.getElementById('result').value = result;
+}
+
+function hillCipher(text, matrix, encode = true) {
+    let result = '';
+    const blockSize = matrix.length;
+
+    // Ensure text length is a multiple of block size
+    if (text.length % blockSize !== 0) {
+        text = padText(text, blockSize);
+    }
+
+    // Process text in blocks of blockSize
+    for (let i = 0; i < text.length; i += blockSize) {
+        const block = text.slice(i, i + blockSize);
+        const vector = block.split('').map(char => char.charCodeAt(0));
+
+        const newVector = multiplyMatrix(matrix, vector, encode);
+
+        result += newVector.map(num => String.fromCharCode(num % 256)).join('');
+    }
+
+    return result;
+}
+
+function multiplyMatrix(matrix, vector, encode) {
+    let result = [];
+
+    for (let i = 0; i < matrix.length; i++) {
+        let sum = 0;
+        for (let j = 0; j < matrix[i].length; j++) {
+            sum += matrix[i][j] * vector[j];
+        }
+        result[i] = encode ? sum : modInverse(sum, 256); // Optional inverse for decoding
+    }
+
+    return result;
+}
+
+function padText(text, blockSize) {
+    const padLength = blockSize - (text.length % blockSize);
+    return text + ' '.repeat(padLength);  // Pad with spaces
+}
+
+function modInverse(n, mod) {
+    for (let x = 1; x < mod; x++) {
+        if ((n * x) % mod === 1) {
+            return x;
+        }
+    }
+    return 1; // Return 1 if no inverse found
+}
+
