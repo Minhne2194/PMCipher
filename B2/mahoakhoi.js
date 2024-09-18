@@ -1,6 +1,5 @@
 function goBack() {
-    window.location.href = 'index.html';  // Thay 'index.html' bằng đường dẫn chính xác đến trang chọn công cụ
-}
+    window.location.href = 'index.html';
 
 function loadFile(inputId) {
     const input = document.getElementById(inputId);
