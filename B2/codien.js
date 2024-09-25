@@ -19,6 +19,11 @@ function loadFile(inputId) {
     };
 }
 
+function gcd(a, b) {
+    return b === 0 ? a : gcd(b, a % b);
+}
+
+
 function processText1() {
     const action = document.getElementById('action').value;
     const shift = parseInt(document.getElementById('shift').value) || 0;
