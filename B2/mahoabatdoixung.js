@@ -19,20 +19,6 @@ function loadFile(inputId) {
     };
 }
 
-function processTextRSA() {
-    const action = document.getElementById('action').value;
-    const shift = parseInt(document.getElementById('shift').value) || 0;
-    let inputText = '';
-
-    if (action === 'encode') {
-        inputText = document.getElementById('plaintext').value;
-    } else {
-        inputText = document.getElementById('ciphertext').value;
-    }
-
-    const result = caesarCipher(inputText, shift, action === 'encode');
-    document.getElementById('result').value = result;
-}
 
 function modInverse(e, phi) {
     let t = 0, newT = 1;
