@@ -67,19 +67,29 @@ function processTextRSA() {
         return;
     }
 
-    const result = rsaCipher(inputText, e, d, n, action === 'encode');
+    let result;
+    if (action === 'encode') {
+        result = rsaCipher(inputText, e, d, n, true);  // Mã hóa
+    } else {
+        // Tách chuỗi số ra thành mảng các số trước khi giải mã
+        const ciphertextNumbers = inputText.split(' ').map(Number);
+        result = ciphertextNumbers.map(num => rsaCipher(String.fromCharCode(num), e, d, n, false)).join('');
+    }
+
     document.getElementById('result').value = result;
 }
+
 function rsaCipher(text, e, d, n, encode = true) {
     let result = '';
 
+    // Mã hóa hoặc giải mã từng ký tự dựa trên ASCII code
     for (let i = 0; i < text.length; i++) {
         let charCode = text.charCodeAt(i);
 
         if (encode) {
             // Mã hóa: C = M^e mod n
             let encrypted = modExp(charCode, e, n);
-            result += String.fromCharCode(encrypted);
+            result += encrypted + ' ';  // Lưu kết quả dưới dạng chuỗi số, cách nhau bằng dấu cách
         } else {
             // Giải mã: M = C^d mod n
             let decrypted = modExp(charCode, d, n);
@@ -87,7 +97,7 @@ function rsaCipher(text, e, d, n, encode = true) {
         }
     }
 
-    return result;
+    return encode ? result.trim() : result;
 }
 
 // Hàm lũy thừa modular (modular exponentiation)
