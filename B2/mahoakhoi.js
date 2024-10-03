@@ -30,6 +30,11 @@ function processText5() {
     } else {
         inputText = document.getElementById('ciphertext').value;
     }
+    
+     if (key.length !== 64) {
+        alert("Khóa DES không hợp lệ. Vui lòng đảm bảo rằng khóa có độ dài 64 bit.");
+        return;
+    }   
 
     let result;
     if (action === 'encode') {
@@ -39,6 +44,26 @@ function processText5() {
     }
 
     document.getElementById('result').value = result;
+}
+
+function generateKey() {
+    // Tạo khóa 64 bits ngẫu nhiên
+    let key = [];
+    for (let i = 0; i < 64; i++) {
+        key.push(Math.floor(Math.random() * 2));
+    }
+
+    // Thêm parity bits (8 bits kiểm tra)
+    for (let i = 0; i < 8; i++) {
+        let byte = key.slice(i * 8, (i + 1) * 8);
+        let parityBit = byte.reduce((a, b) => a + b) % 2;  // Tính tổng các bit và lấy modulo 2
+        key[i * 8 + 7] = parityBit;  // Gán bit kiểm tra cho vị trí cuối của mỗi byte
+    }
+
+    // Chuyển đổi mảng bit thành chuỗi nhị phân
+    let keyStr = key.join('');
+    document.getElementById('desKey').value = keyStr;  // Hiển thị khóa vừa tạo trong input
+    alert("Khóa DES đã được tạo tự động!");
 }
 
 // Hàm xử lý mã hóa/giải mã AES
