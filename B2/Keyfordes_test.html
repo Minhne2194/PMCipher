@@ -39,6 +39,29 @@
     <button onclick="processText5()">Submit</button>
 
     <script>
+
+
+function goBack() {
+    window.location.href = 'index.html';
+}
+
+function loadFile(inputId) {
+    const input = document.getElementById(inputId);
+    const fileInput = document.getElementById(inputId + 'File');
+    const file = fileInput.files[0];
+    const reader = new FileReader();
+
+    reader.readAsText(file, 'UTF-8');
+
+    reader.onload = function(e) {
+        input.value = e.target.result;
+    };
+
+    reader.onerror = function() {
+        alert('Không thể đọc tệp. Vui lòng thử lại.');
+    };
+}
+        
         function processText5() {
             const action = document.getElementById('action').value;
             const key = document.getElementById('desKey').value.trim();
