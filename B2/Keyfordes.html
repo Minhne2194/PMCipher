@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DES Encryption</title>
+    <script src="https://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/des.js"></script>
+</head>
+<body>
+    <label for="action">Action: </label>
+    <select id="action">
+        <option value="encode">Encode</option>
+        <option value="decode">Decode</option>
+    </select>
+    
+    <br><br>
+
+    <label for="desKey">Key (Optional): </label>
+    <input type="text" id="desKey" placeholder="Enter or auto-generate key">
+    <button onclick="generateDESKey()">Generate Key</button>
+
+    <br><br>
+
+    <label for="plaintext">Plaintext: </label>
+    <input type="text" id="plaintext">
+    
+    <br><br>
+
+    <label for="ciphertext">Ciphertext: </label>
+    <input type="text" id="ciphertext">
+    
+    <br><br>
+
+    <label for="result">Result: </label>
+    <input type="text" id="result" readonly>
+    
+    <br><br>
+
+    <button onclick="processText5()">Submit</button>
+
+    <script>
+        function processText5() {
+            const action = document.getElementById('action').value;
+            const key = document.getElementById('desKey').value.trim();
+            let inputText = '';
+
+            if (action === 'encode') {
+                inputText = document.getElementById('plaintext').value.trim();
+            } else {
+                inputText = document.getElementById('ciphertext').value.trim();
+            }
+
+            if (key.length === 0 || inputText.length === 0) {
+                alert('Vui lòng nhập khóa và văn bản hợp lệ.');
+                return;
+            }
+
+            let result;
+            try {
+                if (action === 'encode') {
+                    result = CryptoJS.DES.encrypt(inputText, key).toString();
+                } else {
+                    const decrypted = CryptoJS.DES.decrypt(inputText, key);
+                    result = decrypted.toString(CryptoJS.enc.Utf8);
+                    if (!result) throw new Error('Giải mã thất bại');
+                }
+                document.getElementById('result').value = result;
+            } catch (e) {
+                alert('Có lỗi trong quá trình mã hóa/giải mã: ' + e.message);
+                document.getElementById('result').value = '';
+            }
+        }
+
+        // Hàm tạo khóa DES ngẫu nhiên
+        function generateDESKey() {
+            const key = [];
+            
+            // Tạo 64 bits ngẫu nhiên
+            for (let i = 0; i < 64; i++) {
+                key.push(Math.floor(Math.random() * 2));
+            }
+
+            // Thêm parity bits (8 bits kiểm tra)
+            for (let i = 0; i < 8; i++) {
+                let byte = key.slice(i * 8, (i + 1) * 8);
+                let parityBit = byte.reduce((a, b) => a + b, 0) % 2;
+                key[i * 8 + 7] = parityBit;  // Gán parity bit vào bit cuối của mỗi byte
+            }
+
+            // Loại bỏ 8 bits kiểm tra và tạo chuỗi khóa 56 bits
+            const desKey56 = key.filter((_, index) => (index + 1) % 8 !== 0);
+
+            // Chuyển đổi danh sách bit thành chuỗi nhị phân
+            const keyString = desKey56.join('');
+            document.getElementById('desKey').value = keyString;
+            alert("Generated DES Key: " + keyString);
+        }
+    </script>
+</body>
+</html>
