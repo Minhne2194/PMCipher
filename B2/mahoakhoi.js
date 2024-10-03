@@ -19,6 +19,7 @@ function loadFile(inputId) {
     };
 }
 
+
 // Hàm xử lý mã hóa/giải mã DES
 function processText5() {
     const action = document.getElementById('action').value;
