@@ -54,6 +54,24 @@
 </div>
 
 <script>
+
+    // Hàm input file
+    function loadFile(inputId) {
+    const input = document.getElementById(inputId);
+    const fileInput = document.getElementById(inputId + 'File');
+    const file = fileInput.files[0];
+    const reader = new FileReader();
+
+    reader.readAsText(file, 'UTF-8');
+
+    reader.onload = function(e) {
+        input.value = e.target.result;
+    };
+
+    reader.onerror = function() {
+        alert('Không thể đọc tệp. Vui lòng thử lại.');
+    };
+}
     // Hàm tính giá trị băm MD5 của văn bản
     function calculateMD5(input) {
         return CryptoJS.MD5(input).toString();
