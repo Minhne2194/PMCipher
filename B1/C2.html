@@ -29,23 +29,28 @@
     
 <script>
 
-    // Hàm input file
-    function loadFile(inputId) {
+// Hàm input file
+function loadFile(inputId) {
     const input = document.getElementById(inputId);
     const fileInput = document.getElementById(inputId + 'File');
-    const file = fileInput.files[0];
+    const file = fileInput.files[0]; // Đảm bảo lấy tệp từ input file
     const reader = new FileReader();
 
-    reader.readAsText(file, 'UTF-8');
+    if (file) { // Kiểm tra xem có tệp được chọn không
+        reader.readAsText(file, 'UTF-8');
 
-    reader.onload = function(e) {
-        input.value = e.target.result;
-    };
+        reader.onload = function(e) {
+            input.value = e.target.result; // Gán nội dung tệp vào ô nhập văn bản
+        };
 
-    reader.onerror = function() {
-        alert('Không thể đọc tệp. Vui lòng thử lại.');
-    };
+        reader.onerror = function() {
+            alert('Không thể đọc tệp. Vui lòng thử lại.');
+        };
+    } else {
+        alert('Vui lòng chọn tệp để tải lên.');
+    }
 }
+
     // Hàm tính giá trị băm MD5 của văn bản
     function calculateMD5(input) {
         return CryptoJS.MD5(input).toString();
