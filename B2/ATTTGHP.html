@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caesar & Vigenère Cipher Cracker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        textarea {
+            width: 100%;
+            height: 150px;
+        }
+        button {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .output {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Caesar & Vigenère Cipher Cracker</h2>
+
+<label for="ciphertext">Nhập văn bản mã hóa:</label><br>
+<textarea id="ciphertext" placeholder="Nhập văn bản mã hóa tại đây..."></textarea><br>
+
+<button onclick="tryCaesar()">Thử giải mã bằng Caesar Cipher</button>
+<button onclick="tryVigenere()">Thử giải mã bằng Vigenère Cipher</button>
+
+<div class="output" id="output"></div>
+
+<script>
+    // Hàm giải mã Caesar cipher
+    function decryptCaesar(ciphertext, shift) {
+        let result = '';
+        for (let i = 0; i < ciphertext.length; i++) {
+            let char = ciphertext[i];
+            if (char.match(/[a-z]/i)) {
+                let code = ciphertext.charCodeAt(i);
+                let base = char === char.toUpperCase() ? 65 : 97;
+                result += String.fromCharCode(((code - base - shift + 26) % 26) + base);
+            } else {
+                result += char;
+            }
+        }
+        return result;
+    }
+
+    // Hàm thử giải mã Caesar với mọi dịch chuyển từ 1 đến 25
+    function tryCaesar() {
+        let ciphertext = document.getElementById("ciphertext").value;
+        let output = '<h3>Kết quả giải mã bằng Caesar:</h3>';
+        for (let shift = 1; shift < 26; shift++) {
+            output += `<p>Shift ${shift}: ${decryptCaesar(ciphertext, shift)}</p>`;
+        }
+        document.getElementById("output").innerHTML = output;
+    }
+
+    // Hàm giải mã Vigenère cipher
+    function decryptVigenere(ciphertext, key) {
+        let result = '';
+        key = key.toLowerCase();
+        let keyIndex = 0;
+
+        for (let i = 0; i < ciphertext.length; i++) {
+            let char = ciphertext[i];
+            if (char.match(/[a-z]/i)) {
+                let base = char === char.toUpperCase() ? 65 : 97;
+                let shift = key.charCodeAt(keyIndex % key.length) - 97;
+                result += String.fromCharCode(((ciphertext.charCodeAt(i) - base - shift + 26) % 26) + base);
+                keyIndex++;
+            } else {
+                result += char;
+            }
+        }
+        return result;
+    }
+
+    // Hàm thử giải mã Vigenère cipher với một số khóa phổ biến
+    function tryVigenere() {
+        let ciphertext = document.getElementById("ciphertext").value;
+        let keys = ['abc', 'key', 'cipher', 'test']; // Thử các khóa thông dụng hoặc có thể nhập
+        let output = '<h3>Kết quả giải mã bằng Vigenère:</h3>';
+
+        keys.forEach(key => {
+            output += `<p>Key "${key}": ${decryptVigenere(ciphertext, key)}</p>`;
+        });
+
+        document.getElementById("output").innerHTML = output;
+    }
+</script>
+
+</body>
+</html>
