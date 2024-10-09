@@ -34,8 +34,15 @@
 
 <h2>Mã hóa và kiểm tra tính toàn vẹn bằng DES</h2>
 
+<div class="section">
+    <label for="plaintext">Nhập bản rõ hoặc tải tệp:</label>
+    <textarea id="plaintext" placeholder="Nhập bản rõ tại đây..."></textarea>
+    <input type="file" id="plaintextFile" accept=".txt" onchange="loadFile('plaintext')">
+</div>
+
 <label for="inputText">Nhập nội dung:</label><br>
 <textarea id="inputText" placeholder="Nhập văn bản tại đây..."></textarea><br>
+
 
 <button onclick="hashAndEncrypt()">Tính băm và mã hóa DES</button>
 
