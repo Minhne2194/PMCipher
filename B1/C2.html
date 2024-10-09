@@ -29,27 +29,27 @@
     
 <script>
 
-// Hàm input file
-function loadFile(inputId) {
-    const input = document.getElementById(inputId);
-    const fileInput = document.getElementById(inputId + 'File');
-    const file = fileInput.files[0]; // Đảm bảo lấy tệp từ input file
-    const reader = new FileReader();
+    // Hàm input file
+    function loadFile() {
+        const input = document.getElementById('inputText');
+        const fileInput = document.getElementById('plaintextFile');
+        const file = fileInput.files[0]; // Đảm bảo lấy tệp từ input file
+        const reader = new FileReader();
 
-    if (file) { // Kiểm tra xem có tệp được chọn không
-        reader.readAsText(file, 'UTF-8');
+        if (file) { // Kiểm tra xem có tệp được chọn không
+            reader.readAsText(file, 'UTF-8');
 
-        reader.onload = function(e) {
-            input.value = e.target.result; // Gán nội dung tệp vào ô nhập văn bản
-        };
+            reader.onload = function(e) {
+                input.value = e.target.result; // Gán nội dung tệp vào ô nhập văn bản
+            };
 
-        reader.onerror = function() {
-            alert('Không thể đọc tệp. Vui lòng thử lại.');
-        };
-    } else {
-        alert('Vui lòng chọn tệp để tải lên.');
+            reader.onerror = function() {
+                alert('Không thể đọc tệp. Vui lòng thử lại.');
+            };
+        } else {
+            alert('Vui lòng chọn tệp để tải lên.');
+        }
     }
-}
 
     // Hàm tính giá trị băm MD5 của văn bản
     function calculateMD5(input) {
