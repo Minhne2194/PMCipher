@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mã hóa và kiểm tra tính toàn vẹn bằng DES</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        textarea {
+            width: 100%;
+            height: 150px;
+        }
+        button {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .output {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Mã hóa và kiểm tra tính toàn vẹn bằng DES</h2>
+
+<label for="inputText">Nhập nội dung:</label><br>
+<textarea id="inputText" placeholder="Nhập văn bản tại đây..."></textarea><br>
+
+<button onclick="hashAndEncrypt()">Tính băm và mã hóa DES</button>
+
+<div class="output">
+    <h3>Kết quả:</h3>
+    <p id="hashed">Băm MD5: </p>
+    <p id="encrypted">Văn bản đã mã hóa: </p>
+    <p id="check">Kiểm tra tính toàn vẹn: </p>
+</div>
+
+<script>
+    // Hàm tính giá trị băm MD5 của văn bản
+    function calculateMD5(input) {
+        return CryptoJS.MD5(input).toString();
+    }
+
+    // Hàm mã hóa DES
+    function encryptDES(text, key) {
+        return CryptoJS.DES.encrypt(text, key).toString();
+    }
+
+    // Hàm giải mã DES
+    function decryptDES(ciphertext, key) {
+        return CryptoJS.DES.decrypt(ciphertext, key).toString(CryptoJS.enc.Utf8);
+    }
+
+    // Hàm thực hiện tính băm và mã hóa
+    function hashAndEncrypt() {
+        const inputText = document.getElementById('inputText').value;
+        const key = "12345678";  // Khóa DES cần dài 8 ký tự
+
+        // 1. Tính giá trị băm MD5
+        const hashValue = calculateMD5(inputText);
+        document.getElementById('hashed').textContent = 'Băm MD5: ' + hashValue;
+
+        // 2. Thêm băm vào cuối văn bản
+        const textWithHash = inputText + hashValue;
+
+        // 3. Mã hóa văn bản kèm băm bằng DES
+        const encryptedText = encryptDES(textWithHash, key);
+        document.getElementById('encrypted').textContent = 'Văn bản đã mã hóa: ' + encryptedText;
+
+        // 4. Kiểm tra tính toàn vẹn bằng giải mã và so sánh lại băm
+        const decryptedText = decryptDES(encryptedText, key);
+        const originalText = decryptedText.slice(0, -32);  // Lấy phần văn bản gốc
+        const originalHash = decryptedText.slice(-32);  // Lấy phần băm
+        const recalculatedHash = calculateMD5(originalText);
+
+        if (originalHash === recalculatedHash) {
+            document.getElementById('check').textContent = 'Kiểm tra tính toàn vẹn: Tệp giữ nguyên tính toàn vẹn.';
+        } else {
+            document.getElementById('check').textContent = 'Kiểm tra tính toàn vẹn: Tệp đã bị thay đổi.';
+        }
+    }
+</script>
+
+</body>
+</html>
